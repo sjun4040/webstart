@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>박상준의 포트폴리오</title>
+  <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Spoqa Han Sans Neo', sans-serif;
+      display: flex;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #E5E5E5;
+      padding: 20px;
+      box-sizing: border-box;
+      height: 100vh;
+      position: fixed;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .menu h2 {
+      margin-top: 0;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .menu li {
+      margin: 10px 0;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #1C1C2E;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .menu a.active, .menu a:hover {
+      color: #0066CC;
+    }
+
+    .content {
+      margin-left: 270px;
+      margin-right: 320px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #FFFFFF;
+      transition: background 0.3s;
+    }
+
+    header {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 30px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .theme-toggle {
+      margin-right: 10px;
+      padding: 8px 14px;
+      border: none;
+      background-color: #ffffff;
+      color: #1C1C2E;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: #e0e0ff;
+    }
+
+    .profile-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .profile-box img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      object-position: top;
+      border: 2px solid #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      margin-top: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-box img:hover {
+      transform: scale(1.1);
+    }
+
+    .subinfo {
+      text-align: center;
+      margin-top: 8px;
+      color: #f0f0f0;
+      font-size: 0.95em;
+    }
+
+    section {
+      width: 100%;
+      max-width: 800px;
+      background-color: #F9F9F9;
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    section:nth-of-type(even) {
+      background-color: #EDEDED;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .profile-card {
+      position: fixed;
+      right: 20px;
+      top: 40px;
+      width: 260px;
+      background: #f4f7ff;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      font-size: 14px;
+    }
+
+    .profile-card h3 {
+      margin-top: 0;
+      color: #1C1C2E;
+    }
+
+    .profile-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .profile-card li {
+      margin-bottom: 6px;
+    }
+
+    .profile-card .tags {
+      margin-top: 10px;
+    }
+    .project-contact {
+     margin-top: 2rem;
+    font-size: 1rem;
+    color: #e0e1dd;
+    text-align: center;
+    }
+
+.project-contact a {s
+  color: #1b75d0;
+  text-decoration: underline;
+}
+
+    .tag {
+      display: inline-block;
+      background-color: #667eea;
+      color: white;
+      padding: 2px 8px;
+      margin: 3px 3px 0 0;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .download-btn {
+      margin-top: 10px;
+      display: inline-block;
+      text-align: center;
+      background: #667eea;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: #5566cc;
+    }
+
+    .blue-theme body {
+      background-color: #f0f6ff;
+      color: #1C1C2E;
+    }
+
+    .blue-theme .content {
+      background-color: #eaf2ff;
+    }
+
+    @media (max-width: 1024px) {
+      .profile-card {
+        display: none;
+      }
+
+      .content {
+        margin-right: 0;
+      }
+    }
+    @media screen and (max-width: 768px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background-color: #e5e5e5;
+  }
+
+  .menu ul {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .profile-box img {
+    width: 90px;
+    height: 90px;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .summary-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="menu">
+      <h2>메뉴</h2>
+      <ul>
+        <li><a href="#about">자기소개</a></li>
+        <li><a href="#career">경력</a></li>
+        <li><a href="#team">팀 활동</a></li>
+        <li><a href="#skills">기술</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content">
+    <header>
+      <h1>박상준의 포트폴리오</h1>
+      <div class="profile-box" onclick="openModal()">
+        <img src="/포트폴리오 사진/2.jpg" alt="프로필 사진">
+        <div class="subinfo">Validation Specialist | 산업경영공학 전공자</div>
+      </div>
+    </header>
+
+    <section id="about">
+      <h2>자기소개</h2>
+      <p>안녕하세요, 의료기기 회사의 벨리데이션(Validation) 부서를 희망하는 박상준입니다. 정밀성과 책임감이 요구되는 의료기기 분야에서 신뢰받는 전문가로 성장하고자 합니다.</p>
+    </section>
+
+    <section id="career">
+      <h2>학력 및 경력</h2>
+      <ul>
+        <li><strong>학력:</strong> 4년제 대학 산업경영공학과 전공</li>
+        <li><strong>경력:</strong> (주)더스탠다드 – 재직기간: 2년</li>
+      </ul>
+    </section>
+
+    <section id="team">
+      <h2>팀 활동 이력</h2>
+      <p><strong>중앙동아리 "뤼미에르" 임원진 활동</strong></p>
+      <ul>
+        <li>총무 부서에서 장부 및 예산 관리</li>
+        <li>100명의 부원이 소속된 중앙 동아리 운영</li>
+        <li>행사 및 정기 활동 중 인원 통솔 및 통제 역할 수행</li>
+      </ul>
+      <p><strong>LG U+ why not camp sw 활동</strong></p>
+      <ul>
+        <li>데이터 분석과 개발을 학습하고 팀 활동을 기반으로 수업 진행</li>
+      </ul>
+    </section>
+
+    <section id="skills">
+      <h2>기술</h2>
+      <ul>
+        <li>HTML – LG U+ why not sw camp 수강</li>
+        <li>JavaScript – LG U+ why not sw camp 수강</li>
+        <li>Minitab – 대학교 품질 관련 수업 활용</li>
+        <li>SPSS – 대학교 품질 관련 수업 활용</li>
+        <li>SCL – LG U+ why not sw camp 수강</li>
+        <li>Cloud – LG U+ why not sw camp 수강</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>프로젝트</h2>
+      <p><strong>캡스톤 디자인 프로젝트 – "파인아트"</strong><br>
+        가구 공장의 문제점을 분석하고 개선 방안 도출</p>
+      <p><strong>LG U+ why not sw camp 프로젝트</strong><br>
+        다양한 개발 환경을 학습하며 팀 프로젝트 수행</p>
+        <p class="project-contact">
+  프로젝트 결과물을 보고싶으시다면 <a href="mailto:a79681108@email.com">a79681108@gmail.com</a>로 연락해주세요.
+</p>
+    </section>
+
+    <section id="contact">
+      <h2>연락처</h2>
+      <p>이메일: <a href="mailto:a79681108@gmail.com">a79681108@gmail.com</a></p>
+    </section>
+  </div>
+
+  <div class="profile-card">
+    <h3>박상준</h3>
+    <ul>
+      <li><strong>직무:</strong> Validation Specialist</li>
+      <li><strong>학력:</strong> 산업경영공학 전공</li>
+      <li><strong>경력:</strong> 더스탠다드 2년</li>
+      <li><strong>이메일:</strong><br><a href="mailto:a79681108@gmail.com">a79681108@gmail.com</a></li>
+    </ul>
+    <div class="tags">
+      <span class="tag">HTML</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Minitab</span>
+      <span class="tag">SPSS</span>
+    </div>
+    <a class="download-btn" href="/resume.pdf" download>📄 이력서 다운로드</a>
+  </div>
+
+  <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
+    <img src="/포트폴리오 사진/2.jpg" alt="확대된 프로필 사진">
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+
+    function openModal() {
+      document.getElementById('imageModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+  </script>
+</body>
+</html>
