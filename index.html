@@ -6,7 +6,6 @@
   <title>박상준의 포트폴리오</title>
   <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <style>
     html {
       scroll-behavior: smooth;
@@ -20,12 +19,19 @@
     }
 
     .sidebar {
-      width: 250px;
+      width: 60px;
       background-color: #E5E5E5;
-      padding: 20px;
+      padding: 20px 10px;
       box-sizing: border-box;
       height: 100vh;
       position: fixed;
+      transition: width 0.3s;
+      overflow: hidden;
+    }
+
+    .sidebar:hover,
+    .sidebar.expanded {
+      width: 250px;
     }
 
     .menu {
@@ -36,15 +42,28 @@
 
     .menu h2 {
       margin-top: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-align: center;
+      display: none;
+    }
+
+    .sidebar:hover .menu h2,
+    .sidebar.expanded .menu h2 {
+      display: block;
     }
 
     .menu ul {
       list-style: none;
       padding: 0;
+      width: 100%;
     }
 
     .menu li {
       margin: 10px 0;
+      text-align: left;
+      display: flex;
+      align-items: center;
     }
 
     .menu a {
@@ -52,21 +71,54 @@
       color: #1C1C2E;
       font-weight: bold;
       transition: color 0.3s;
+      padding: 5px 10px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    .menu a .icon {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .menu a span {
+      display: none;
+    }
+
+    .sidebar:hover .menu a span,
+    .sidebar.expanded .menu a span {
+      display: inline;
     }
 
     .menu a.active, .menu a:hover {
       color: #0066CC;
     }
 
+    .toggle-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: #1C1C2E;
+      margin-bottom: 10px;
+    }
+
     .content {
-      margin-left: 270px;
-      margin-right: 320px;
+      margin-left: 70px;
       padding: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
       background-color: #FFFFFF;
-      transition: background 0.3s;
+      transition: margin-left 0.3s;
+    }
+
+    .sidebar:hover ~ .content,
+    .sidebar.expanded ~ .content {
+      margin-left: 270px;
     }
 
     header {
@@ -81,22 +133,6 @@
       color: white;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .theme-toggle {
-      margin-right: 10px;
-      padding: 8px 14px;
-      border: none;
-      background-color: #ffffff;
-      color: #1C1C2E;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .theme-toggle:hover {
-      background-color: #e0e0ff;
     }
 
     .profile-box {
@@ -138,7 +174,7 @@
       border-radius: 8px;
       opacity: 0;
       transform: translateY(20px);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
@@ -186,17 +222,6 @@
     .profile-card .tags {
       margin-top: 10px;
     }
-    .project-contact {
-     margin-top: 2rem;
-    font-size: 1rem;
-    color: #e0e1dd;
-    text-align: center;
-    }
-
-.project-contact a {s
-  color: #1b75d0;
-  text-decoration: underline;
-}
 
     .tag {
       display: inline-block;
@@ -225,15 +250,6 @@
       background: #5566cc;
     }
 
-    .blue-theme body {
-      background-color: #f0f6ff;
-      color: #1C1C2E;
-    }
-
-    .blue-theme .content {
-      background-color: #eaf2ff;
-    }
-
     @media (max-width: 1024px) {
       .profile-card {
         display: none;
@@ -243,76 +259,70 @@
         margin-right: 0;
       }
     }
+
     @media screen and (max-width: 768px) {
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    background-color: #e5e5e5;
-  }
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
 
-  .menu ul {
-    flex-direction: row;
-    display: flex;
-    justify-content: space-around;
-  }
+      .menu ul {
+        flex-direction: row;
+        display: flex;
+        justify-content: space-around;
+      }
 
-  .content {
-    margin-left: 0;
-    padding: 20px;
-  }
+      .content {
+        margin-left: 0;
+        padding: 20px;
+      }
 
-  header {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-  }
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
 
-  .profile-box img {
-    width: 90px;
-    height: 90px;
-  }
+      .profile-box img {
+        width: 90px;
+        height: 90px;
+      }
 
-  section {
-    padding: 15px;
-  }
+      section {
+        padding: 15px;
+      }
 
-  h2 {
-    font-size: 1.2em;
-  }
-
-  .summary-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-  }
-}
-
+      h2 {
+        font-size: 1.2em;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
+    <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     <div class="menu">
       <h2>메뉴</h2>
       <ul>
-        <li><a href="#about">자기소개</a></li>
-        <li><a href="#career">경력</a></li>
-        <li><a href="#team">팀 활동</a></li>
-        <li><a href="#skills">기술</a></li>
-        <li><a href="#projects">프로젝트</a></li>
-        <li><a href="#contact">연락처</a></li>
+        <li><a href="#about"><span class="icon"><i class="fas fa-user"></i></span><span>자기소개</span></a></li>
+        <li><a href="#career"><span class="icon"><i class="fas fa-briefcase"></i></span><span>경력</span></a></li>
+        <li><a href="#team"><span class="icon"><i class="fas fa-users"></i></span><span>팀 활동</span></a></li>
+        <li><a href="#skills"><span class="icon"><i class="fas fa-code"></i></span><span>기술</span></a></li>
+        <li><a href="#projects"><span class="icon"><i class="fas fa-tasks"></i></span><span>프로젝트</span></a></li>
+        <li><a href="#contact"><span class="icon"><i class="fas fa-envelope"></i></span><span>연락처</span></a></li>
       </ul>
     </div>
   </div>
 
   <div class="content">
+    <!-- Your content sections go here -->
+  </div>
+ <div class="content">
     <header>
       <h1>박상준의 포트폴리오</h1>
       <div class="profile-box" onclick="openModal()">
-        <img src="2.jpg" alt="프로필 사진">
+        <img src="../포트폴리오 사진/2.jpg" alt="프로필 사진">
         <div class="subinfo">Validation Specialist | 산업경영공학 전공자</div>
       </div>
     </header>
@@ -351,7 +361,7 @@
         <li>JavaScript – LG U+ why not sw camp 수강</li>
         <li>Minitab – 대학교 품질 관련 수업 활용</li>
         <li>SPSS – 대학교 품질 관련 수업 활용</li>
-        <li>SQL – LG U+ why not sw camp 수강</li>
+        <li>SCL – LG U+ why not sw camp 수강</li>
         <li>Cloud – LG U+ why not sw camp 수강</li>
       </ul>
     </section>
@@ -386,9 +396,12 @@
       <span class="tag">JavaScript</span>
       <span class="tag">Minitab</span>
       <span class="tag">SPSS</span>
-      <span class="tag">SQL</span>
     </div>
     <a class="download-btn" href="/resume.pdf" download>📄 이력서 다운로드</a>
+  </div>
+
+  <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
+    <img src="/포트폴리오 사진/2.jpg" alt="확대된 프로필 사진">
   </div>
 
   <script>
@@ -410,6 +423,12 @@
       document.getElementById('imageModal').style.display = 'none';
     }
 
+  </script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('expanded');
+    }
   </script>
 </body>
 </html>
